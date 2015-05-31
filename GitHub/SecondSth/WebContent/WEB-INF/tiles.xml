@@ -1,0 +1,43 @@
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+    <definition name="tilesBase" template="/WEB-INF/tiles/template.jsp">
+        <put-attribute name="meta" value="/WEB-INF/tiles/index/meta.jsp" />
+        <put-attribute name="header" value="/WEB-INF/tiles/index/header.jsp" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="title" value="" />
+        <put-attribute name="footer" value="/WEB-INF/tiles/index/footer.jsp" />
+        <put-attribute name="menu" value="/WEB-INF/tiles/index/menu.jsp" />
+    </definition>
+
+	<definition name="home" extends="tilesBase">
+		<put-attribute name="title" value="Exchange Secondhand Sth" />
+		<put-attribute name="body" value="/WEB-INF/tiles/index/home.jsp" />
+	</definition>
+	
+	<definition name="notice" extends="tilesBase">
+		<put-attribute name="title" value="공지사항" />
+		<put-attribute name="body" value="/WEB-INF/tiles/notice/notice.jsp" />
+	</definition>
+	
+	<definition name="signup" extends="tilesBase">
+		<put-attribute name="title" value="회원가입" />
+		<put-attribute name="body" value="/WEB-INF/tiles/signup/signup.jsp" />
+	</definition>
+	
+	<definition name="noticeWrite" extends="tilesBase">
+		<put-attribute name="title" value="공지사항" />
+		<put-attribute name="body" value="/WEB-INF/tiles/notice/noticeWrite.jsp" />
+	</definition>
+	
+	<definition name="noticeInnerView" extends="tilesBase">
+		<put-attribute name="title" value="공지사항" />
+		<put-attribute name="body" value="/WEB-INF/tiles/notice/noticeInnerView.jsp" />
+	</definition>
+	
+	<definition name="memberInfo" extends="tilesBase">
+		<put-attribute name="title" value="공지사항" />
+		<put-attribute name="body" value="/WEB-INF/tiles/memberInfo/memberInfo.jsp" />
+	</definition>
+</tiles-definitions>

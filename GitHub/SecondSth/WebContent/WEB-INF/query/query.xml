@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="query">
+	<resultMap id="MemberMap" type="net.SecondSth.VO.member.MemberVo">
+		<result property="id" column="id" />
+		<result property="email" column="email" />
+		<result property="nick" column="nick" />
+		<result property="phone" column="phone" />
+		<result property="pw" column="pw" />
+		<result property="signUpDate" column="signUpDate" />
+	</resultMap>
+	
+	<insert id="insertMember" parameterType="memberVo" useGeneratedKeys="true">
+		INSERT INTO member (email, nick, phone, pw, signUpDate) VALUES (#{email}, #{nick}, #{phone}, HEX(AES_ENCRYPT(#{pw}, 'knh21c')), NOW())
+	</insert>
+	
+	<select id="selectMemberByEmail" parameterType="memberVo" resultType="memberVo">
+		SELECT * FROM member WHERE email = #{email}
+	</select>
+	
+	<select id="selectMemberByNick" parameterType="memberVo" resultType="memberVo">
+		SELECT * FROM member WHERE nick = #{nick}
+	</select>
+	
+	<select id="selectPw" parameterType="memberVo" resultType="String">
+		SELECT AES_DECRYPT(UNHEX(pw), 'knh21c') FROM member where email = #{email}
+	</select>
+	
+	<select id="selectAllMember" resultMap="MemberMap">
+		SELECT * FROM member
+	</select>
+</mapper>

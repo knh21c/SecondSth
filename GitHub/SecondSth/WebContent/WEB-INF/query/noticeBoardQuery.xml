@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="noticeBoardQuery">
+	<resultMap id="NoticeBoardMap" type="net.SecondSth.VO.board.NoticeBoard">
+		<result property="id" column="id" />
+		<result property="email" column="email" />
+		<result property="nick" column="nick" />
+		<result property="pw" column="pw" />
+		<result property="title" column="title" />
+		<result property="date" column="date" />
+		<result property="hit" column="hit" />
+		<result property="content" column="content" />
+	</resultMap>
+	
+	<resultMap id="NoticeCommentMap" type="net.SecondSth.VO.board.NoticeBoardComment">
+		<result property="id" column="id"/>
+		<result property="nick" column="nick"/>
+		<result property="comment" column="comment"/>
+		<result property="date" column="date"/>
+	</resultMap>
+	
+	<insert id="insertNoticeArticle" parameterType="noticeBoard" useGeneratedKeys="true">
+		INSERT INTO noticeboard (email, nick, pw, title, date, hit, content) VALUES (#{email}, #{nick}, HEX(AES_ENCRYPT(#{pw}, 'knh21c')), #{title}, NOW(), #{hit}, #{content})
+	</insert>
+	
+	<select id="selectNoticeArticle" parameterType="noticeBoard" resultType="noticeBoard">
+		SELECT * FROM noticeboard WHERE id = #{id}
+	</select>
+	
+	<select id="selectAllNoticeArticle" resultMap="NoticeBoardMap">
+		SELECT * FROM noticeboard
+	</select>
+	
+	<delete id="deleteNoticeArticle" parameterType="noticeBoard">
+		DELETE FROM noticeboard WHERE id = #{id}
+	</delete>
+	
+	<update id="updateNoticeArticle" parameterType="noticeBoard">
+		UPDATE noticeboard SET content=#{content} WHERE id=#{id}
+	</update>
+	
+	<update id="updateNoticeHit" parameterType="noticeBoard">
+		UPDATE noticeboard SET hit=#{hit} WHERE id=#{id}
+	</update>
+	
+	<insert id="insertNoticeComment" parameterType="noticeBoardComment">
+		INSERT INTO noticecomment (id, nick, comment, date) VALUES(#{id}, #{nick}, #{comment}, NOW())
+	</insert>
+	
+	<select id="selectNoticeComment" parameterType="noticeBoard" resultMap="NoticeCommentMap">
+		SELECT * FROM noticecomment WHERE id = #{id}
+	</select>
+</mapper>
